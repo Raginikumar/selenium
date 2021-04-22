@@ -1,8 +1,10 @@
 package pages;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +34,12 @@ public class Agreements {
 
 	@FindBy(xpath = "//*[@placeholder='I am looking for...']")
 	public WebElement iamLookingForsearchfield;
+	
+	@FindBy(xpath="//*[text()='show All']")
+	public WebElement showAllSearchResult;
+	
+	@FindBy(xpath="//*[text()='No Results found!' and @class='no-match-data']")
+	public WebElement noSearchResultFound;
 
 	@FindBy(className = "loadMore")
 	public WebElement btnLoadMore;
@@ -50,6 +58,9 @@ public class Agreements {
 
 	@FindBy(xpath = "//*[@class='clone-active']")
 	public WebElement btnclone;
+	
+	@FindBy(className = "clearAll")
+	public WebElement ClearSearch;
 
 	public void NavigateToAgreementsModule() {
 
@@ -93,15 +104,38 @@ public class Agreements {
 
 	}
 
-	public void searchAgreement() {
+	public void searchAgreement(String searchValue) {
 
-		iamLookingForsearchfield.sendKeys("E911 - NA -E911 - version 6");
+		iamLookingForsearchfield.sendKeys(searchValue);
+		//showAllSearchResult.click();
 
 	}
 
-	public void iamLookingForsearchfield() {
+	public void searchFieldVerification() {
 		// TODO Auto-generated method stub
-
+		assertTrue(iamLookingForsearchfield.isDisplayed());
+		
+	}
+	
+	public void suggestionCheck() throws NoSuchElementException
+	{
+		try {
+			
+		
+		if(showAllSearchResult.isDisplayed())
+		{
+			assertTrue(showAllSearchResult.isDisplayed());
+			showAllSearchResult.click();
+			ClearSearch.click();
+		}
+		else
+		{
+		assertTrue(noSearchResultFound.isDisplayed());
+		}
+		}catch(NoSuchElementException e)
+		{
+			System.out.println("Searched Element Doesnt exist in the Environment");
+		}
 	}
 
 }

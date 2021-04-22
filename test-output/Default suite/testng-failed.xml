@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="camptestcases.CancelOnCreateAgrmnt">
+      <class name="camptestcases.FirstScript">
         <methods>
-          <include name="test1"/>
           <include name="setup"/>
+          <include name="setUpBeforeClass"/>
+          <include name="test1"/>
         </methods>
-      </class> <!-- camptestcases.CancelOnCreateAgrmnt -->
+      </class> <!-- camptestcases.FirstScript -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
